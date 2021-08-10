@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../shared/services/auth.service";
-import {Router} from "@angular/router";
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { AuthService } from '../../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['../auth.scss']
+  styleUrls: ['../../shared/styles/auth.scss'],
 })
 export class RegistrationComponent implements OnInit {
   currentError!: string;
   form!: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   public get emailControl(): AbstractControl {
     return <AbstractControl>this.form.get('email');
@@ -20,27 +25,25 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      email: new FormControl('', [
-        Validators.email,
-        Validators.required
-      ])
+      email: new FormControl('', [Validators.email, Validators.required]),
     });
   }
 
   clearCurrentError(): void {
-    this.currentError = ''
+    this.currentError = '';
   }
 
   signUp(): void {
-    console.log(this.emailControl.value)
-    this.authService.registerUser({email: this.emailControl.value}).subscribe(res => {
+    console.log(this.emailControl.value);
+    this.authService.registerUser({ email: this.emailControl.value }).subscribe(
+      (res) => {
         localStorage.setItem('token', res.token);
-        this.router.navigate(['/registration-complete'])
+        this.router.navigate(['/registration-complete']);
       },
-      error => {
-        this.currentError = error.error
+      (error) => {
+        this.currentError = error.error;
       }
-    )
+    );
   }
 
   navigateToLogin(): void {

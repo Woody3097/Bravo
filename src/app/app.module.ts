@@ -23,10 +23,6 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from './shared/reducers/side-bar.reducer';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +33,6 @@ import { CatalogComponent } from './catalog/catalog.component';
     RegistrationCompleteComponent,
     ModalComponent,
     EditCustomerModalComponent,
-    CatalogComponent,
   ],
   imports: [
     BrowserModule,

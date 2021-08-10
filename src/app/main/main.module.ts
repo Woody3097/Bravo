@@ -13,6 +13,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import { CustomerGuard } from '../shared/guards/customer.guard';
+import { CatalogComponent } from '../catalog/catalog.component';
 
 const routes: Routes = [
   {
@@ -25,15 +26,20 @@ const routes: Routes = [
         canActivate: [CustomerGuard],
       },
       {
+        path: 'catalog',
+        component: CatalogComponent,
+        canActivate: [CustomerGuard],
+      },
+      {
         path: '**',
-        redirectTo: '/main/customers',
+        redirectTo: '/main/catalog',
       },
     ],
   },
 ];
 
 @NgModule({
-  declarations: [MainComponent, CustomersComponent],
+  declarations: [MainComponent, CustomersComponent, CatalogComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

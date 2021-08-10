@@ -1,4 +1,4 @@
-.customer {
+.section {
   height: 100vh;
   background-color: #f5f5f5;
   &__upper {
@@ -26,7 +26,7 @@
   }
   &__search {
     font-family: 'Manrope-Regular', serif;
-    background-image: url("../../assets/sources/images/search.svg");
+    background-image: url("../../../assets/sources/images/search.svg");
     background-repeat: no-repeat;
     background-position: 3%;
 
@@ -73,8 +73,19 @@
     }
   }
   &::ng-deep {
-    .customer__th {
+    .section__th {
       color: black;
+    }
+    .mat-cell,
+    .mat-header-cell{
+      white-space: unset !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
     }
   }
   &__paginator {
@@ -115,20 +126,6 @@ mat-paginator {
   border: 1px solid transparent;
   border-radius: 0 0 8px 8px;
 }
-.mat-column-number,
-.mat-column-days,
-.mat-column-address,
-.mat-column-name,
-.mat-header-cell{
-  white-space: unset !important;
-  flex: 0 0 23% !important;
-  width: 28% !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
+
+
 

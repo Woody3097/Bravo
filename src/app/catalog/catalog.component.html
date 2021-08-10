@@ -1,0 +1,126 @@
+<div class="section">
+  <div class="wrapper">
+    <mat-toolbar class="section__upper">
+      <div class="section__block section__block-menu">
+        <mat-icon (click)="changeSideBarState()">menu</mat-icon>
+        <span>sections</span>
+      </div>
+      <div class="section__block">
+        <div>replace</div>
+        <div>add</div>
+      </div>
+    </mat-toolbar>
+
+    <input (input)="searchCatalog($event)" type="search" placeholder="section No, Name, Address..." class="section__search">
+
+
+    <div class="section__table-block">
+      <table matSort matSortActive="name" matSortDirection="desc" mat-table [dataSource]="dataSource" class="mat-elevation-z8 section__table">
+
+        <ng-container matColumnDef="productCode" class="section__cell">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '16.666%'}"
+            *matHeaderCellDef
+            class="section__th"> Product Code </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '16.666%'}"
+            *matCellDef="let element"
+            (click)="openEditModal(element)"> {{ element.productCode }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productName">
+          <th (click)="getSortCatalog()"
+              [ngStyle]="{ width: '16.666%'}"
+              mat-header-cell
+              *matHeaderCellDef
+              disableClear
+              mat-sort-header
+              class="section__th"> Name </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '16.666%'}"
+            *matCellDef="let element"
+            (click)="openEditModal(element)"> {{ element.productName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productUnit">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '16.666%'}"
+            *matHeaderCellDef
+            class="section__th"> Unit </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '16.666%'}"
+            *matCellDef="let element"
+            (click)="openEditModal(element)"> {{ element.units[0].unitName}}
+            <span [ngStyle]="{color: 'gray'}" *ngIf="element.units.length > 1">+ {{ element.units.length }} more</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productPrice">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '16.666%'}"
+            *matHeaderCellDef
+            class="section__th"> Price </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '16.666%'}"
+            *matCellDef="let element"
+            (click)="openEditModal(element)"> {{ element.units[0].unitPrice }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productAvailability">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '16.666%'}"
+            *matHeaderCellDef
+            class="section__th"> Availability </th>
+          <td mat-cell
+              [ngStyle]="{ width: '16.666%'}"
+              *matCellDef="let element"
+              (click)="openEditModal(element)"> {{ element.productAvailability }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [ngStyle]="{ width: '16.666%'}"
+            class="section__th"> Action </th>
+          <td mat-cell
+              (click)="deleteCatalogEl(element.productCode)"
+              *matCellDef="let element"
+              [ngStyle]="{ width: '16.666%'}"> del </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="9999">
+            <div class="section__empty">
+              <img class="section__empty-img" src="../../assets/sources/images/Placeholder.svg" alt="placeholder">
+              <span class="section__empty-title">No Data to display</span>
+              <span class="section__empty-text">Seems like you don’t have any <br> section yet. Let’s create it now!</span>
+              <div class="section__block add-block">
+                <mat-icon>add</mat-icon>
+                <span>Add section</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+      <mat-paginator
+        #paginator
+        class="section__paginator"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

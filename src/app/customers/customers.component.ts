@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.scss'],
+  styleUrls: ['../shared/styles/section.scss'],
 })
 export class CustomersComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;

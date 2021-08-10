@@ -12,3 +12,11 @@ export interface CustomerElement {
   customerAddress: string;
   dayNames: string;
 }
+
+export interface CatalogElement {
+  productCode: number;
+  productName: number;
+  productUnit: [];
+  productsPrice: string;
+  productAvailability: string;
+}
