@@ -1,0 +1,23 @@
+<div class="auth">
+  <img class="auth__logo" src="../../../assets/sources/images/logo.svg" alt="logo">
+  <div class="auth__body">
+    <form [formGroup]="form" class="auth__form">
+      <h2 class="auth__title">Log in</h2>
+      <label class="auth__label" for="email">Your email</label>
+      <input
+        (input)="clearCurrentError()"
+        [formControlName]="'email'"
+        type="email"
+        [ngClass]="{
+         'auth__input': true,
+         'auth__error-input': emailControl.hasError('email')
+      }" id="email" placeholder="email@example.com">
+      <span class="auth__error" *ngIf="emailControl.hasError('email')">Invalid email</span>
+      <span class="auth__error" *ngIf="currentError">{{ currentError }}</span>
+      <p class="auth__text">Enter the email you signed up with
+        to receive your auth code</p>
+      <button (click)="logIn()" class="auth__button">Log in</button>
+    </form>
+  </div>
+</div>
+

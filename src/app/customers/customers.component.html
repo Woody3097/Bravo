@@ -1,0 +1,62 @@
+<div class="customer">
+  <div class="wrapper">
+    <mat-toolbar class="customer__upper">
+      <div class="customer__block customer__block-menu">
+          <mat-icon (click)="changeSideBarState()">menu</mat-icon>
+        <span>Customers</span>
+      </div>
+    </mat-toolbar>
+
+    <input (input)="searchCustomers($event)" type="search" placeholder="Customer No, Name, Address..." class="customer__search">
+
+
+    <div class="customer__table-block">
+      <table matSort matSortActive="name" matSortDirection="desc" mat-table [dataSource]="dataSource" class="mat-elevation-z8 customer__table">
+
+        <ng-container matColumnDef="customerNo" class="customer__cell">
+          <th mat-header-cell *matHeaderCellDef class="customer__th"> Customer No. </th>
+          <td mat-cell *matCellDef="let element" (click)="openEditModal(element)"> {{ element.customerNo }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="customerName">
+          <th (click)="getSortCustomers()" mat-header-cell *matHeaderCellDef disableClear mat-sort-header class="customer__th"> Name </th>
+          <td mat-cell *matCellDef="let element" (click)="openEditModal(element)"> {{ element.customerName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="customerAddress">
+          <th mat-header-cell *matHeaderCellDef class="customer__th"> Address </th>
+          <td mat-cell *matCellDef="let element" (click)="openEditModal(element)"> {{ element.customerAddress }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dayNames">
+          <th mat-header-cell *matHeaderCellDef class="customer__th"> Delivery Days </th>
+          <td mat-cell *matCellDef="let element" (click)="openEditModal(element)"> {{ element.dayNames }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="9999">
+            <div class="customer__empty">
+              <img class="customer__empty-img" src="../../assets/sources/images/Placeholder.svg" alt="placeholder">
+              <span class="customer__empty-title">No Data to display</span>
+              <span class="customer__empty-text">Seems like you don’t have any <br> customer yet. Let’s create it now!</span>
+              <div class="customer__block add-block">
+                <mat-icon>add</mat-icon>
+                <span>Add Customer</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+      <mat-paginator
+                     #paginator
+                     class="customer__paginator"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

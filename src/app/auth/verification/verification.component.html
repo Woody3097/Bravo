@@ -1,0 +1,16 @@
+<div class="auth">
+  <img class="auth__logo" src="../../../assets/sources/images/logo.svg" alt="logo">
+  <div class="auth__body">
+    <form [formGroup]="form" (input)="checkInputLength()" class="auth__form">
+      <h2 class="auth__title">Please check your email</h2>
+      <p class="auth__text">We use this login code so you don’t have to remember or type in yet another long password</p>
+      <label class="auth__label" for="verification">Your login code</label>
+      <input maxlength="3" [formControlName]="'firstInput'" type="text" class="auth__input verification" id="verification" placeholder="">
+      <span class="auth__line">-</span>
+      <input maxlength="3" [formControlName]="'secondInput'" #secondInput type="text" class="auth__input verification" id="verification1" placeholder="">
+      <span class="auth__error" *ngIf="checkVerification">Invalid code</span>
+      <p class="auth__text">We've sent a 6 digit login code to example@email.com
+        Can't find it? Check your spam folder.</p>
+    </form>
+  </div>
+</div>

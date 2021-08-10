@@ -1,0 +1,14 @@
+<app-modal>
+  <form [formGroup]="form" class="auth__form auth__form-complete">
+    <h1>Edit Customer</h1>
+      <h2 class="auth__title">Complete registration</h2>
+      <input [formControlName]="'customerNo'" class="auth__input" type="text" placeholder="Customer No.">
+      <input [formControlName]="'customerName'" class="auth__input" required type="text" placeholder="Customer Name">
+      <span *ngIf="customerName.hasError('required')" class="auth__error">Required!</span>
+      <input [formControlName]="'customerAddress'" class="auth__input" required type="text" placeholder="Customer Address">
+      <span *ngIf="customerAddress.hasError('required')" class="auth__error">Required!</span>
+      <input [formControlName]="'dayNames'" class="auth__input" required type="text" placeholder="Delivery Days (Mon, Wed)">
+      <span *ngIf="dayNames.hasError('required')" class="auth__error">Required!</span>
+      <button type="button" (click)="submit()" class="auth__button">Submit</button>
+  </form>
+</app-modal>

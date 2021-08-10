@@ -1,0 +1,29 @@
+<div class="main">
+  <div class="main__body" [ngStyle]="bodyStyle">
+    <div class="main__upper">
+      <img *ngIf="!logoActive" class="main__logo" src="assets/sources/images/logo.svg" alt="Logo">
+      <img *ngIf="logoActive" class="main__logo" src="assets/sources/images/logo_img.svg" alt="Logo">
+      <nav class="main__nav">
+        <div class="main__block">
+          <span class="main__link main__link-first">Orders</span>
+        </div>
+        <div class="main__block">
+          <span class="main__link main__link-second">Catalog</span>
+        </div>
+        <div class="main__block">
+          <span class="main__link main__link-third">Customers</span>
+        </div>
+      </nav>
+    </div>
+    <div class="main__lower">
+      <div class="main__block">
+        <span class="main__link main__link-fourth">Log out</span>
+      </div>
+    </div>
+  </div>
+  <div class="outlet" [ngStyle]="outletStyle">
+      <router-outlet></router-outlet>
+  </div>
+</div>
+
+

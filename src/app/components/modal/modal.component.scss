@@ -1,0 +1,25 @@
+:host {
+  .modal-container {
+    position: relative;
+    font-size: 15px;
+    color: black;
+    max-height: 97vh;
+    overflow-y: auto;
+    padding: 50px;
+    &__close {
+      right: 15px;
+      top: 15px;
+    }
+  }
+  .tag-remove::before {
+    position: absolute;
+    top: 40px;
+    right: 48px;
+    transform: translateX(-100%, -100%);
+    font-size: 30px;
+    content: "\00d7";
+    color: black;
+    font-weight: 300;
+    cursor: pointer;
+  }
+}
