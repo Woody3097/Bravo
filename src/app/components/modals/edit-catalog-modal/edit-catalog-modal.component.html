@@ -1,0 +1,19 @@
+<app-modal>
+  <form [formGroup]="form" class="catalog-edit-modal__form catalog-edit-modal__form-complete">
+    <h2 class="catalog-edit-modal__title">Edit product</h2>
+    <input [formControlName]="'productCode'" class="catalog-edit-modal__input" type="text" placeholder="Product Code">
+    <input [formControlName]="'productName'" class="catalog-edit-modal__input" required type="text" placeholder="Product Name">
+    <span *ngIf="productCode.hasError('required')" class="catalog-edit-modal__error">Required!</span>
+    <input [formControlName]="'productAvailability'" class="catalog-edit-modal__input" required type="text" placeholder="Product Availability">
+    <span *ngIf="productName.hasError('required')" class="catalog-edit-modal__error">Required!</span>
+
+    <div [formGroup]="el[1]" *ngFor="let el of this.tmp" class="catalog-edit-modal__unit">
+      <input type="text" [formControlName]="'unitName'" class="catalog-edit-modal__input catalog-edit-modal__input-unit" required placeholder=Unit Name>
+      <input type="text" [formControlName]="'unitPrice'" class="catalog-edit-modal__input catalog-edit-modal__input-unit" required placeholder="Unit Price">
+      <img (click)="deleteUnit(el[1])" src="assets/sources/images/arrow-down.svg" alt="delete-element">
+    </div>
+
+    <button type="button" (click)="addUnit()">Add unit</button>
+    <button type="button" (click)="submit()" class="catalog-edit-modal__button">Submit</button>
+  </form>
+</app-modal>

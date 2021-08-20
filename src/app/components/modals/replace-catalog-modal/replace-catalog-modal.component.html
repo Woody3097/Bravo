@@ -1,0 +1,35 @@
+<app-modal>
+  <h1 class="catalog-replace__title">Replace Catalog</h1>
+  <span class="catalog-replace__text">Drops the existing catalog and imports the new one</span> <br>
+  <div class="catalog-replace__label" [ngStyle]="styleObj" [ngClass]="{'error': errList.length !== 0}">
+    <div *ngIf="!file" class="catalog-replace__block">
+      <input class="catalog-replace__input" type="file" (change)="showFile($event)">
+      <span class="catalog-replace__text-drag">Drag or Click here to upload files</span>
+      <span class="catalog-replace__text-note">Note, that only .CSV files are supported</span>
+    </div>
+
+    <div *ngIf="file" class="catalog-replace__block-file" >
+      <div class="catalog-replace__block-content">
+        <mat-icon>description</mat-icon>
+        <div class="catalog-replace__info">
+          <span>{{ file.name }}</span>
+          <span>{{ (file.size / 1024).toPrecision(1) }} KB</span>
+        </div>
+      </div>
+      <mat-icon (click)="clearFile()" [ngStyle]="{ cursor: 'pointer' }">clear</mat-icon>
+    </div>
+
+  </div>
+  <div class="catalog-replace__errors">
+    <span [ngStyle]="{color: 'red'}" *ngFor="let err of errList">{{ err }}</span>
+  </div>
+  <div class="catalog-replace__download">
+    <mat-icon class="catalog-replace__download-img"> publish</mat-icon>
+    <span class="catalog-replace__download-text"><span>Download</span> our Template as a help.</span>
+  </div>
+  <div [formGroup]="form" class="catalog-replace__buttons">
+    <button (click)="cancel()" type="button" class="catalog-replace__button-cancel">Cancel</button>
+    <input (click)="replace()" type="button" class="catalog-replace__button" value="Replace catalog" [formControlName]="'button'">
+  </div>
+
+</app-modal>

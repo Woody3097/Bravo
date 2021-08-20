@@ -25,12 +25,15 @@
     color: #414141;
     text-align: left;
     transition: background-color .4s;
-    &:hover .main__link {
-      filter: invert(32%) sepia(98%) saturate(1065%) hue-rotate(193deg) brightness(98%) contrast(98%);
-      cursor: pointer
+    &-active {
+      background-color: #C5DCFA;
     }
     &:hover {
       background-color: #C5DCFA;
+      & .main__link {
+        filter: invert(32%) sepia(98%) saturate(1065%) hue-rotate(193deg) brightness(98%) contrast(98%);
+        cursor: pointer
+      }
     }
   }
   &__link {

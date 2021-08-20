@@ -11,13 +11,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerGuard } from '../shared/guards/customer.guard';
 import { CatalogComponent } from '../catalog/catalog.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   {
-    path: 'main',
+    path: '',
     component: MainComponent,
     children: [
       {
@@ -32,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: '/main/catalog',
+        redirectTo: 'catalog',
       },
     ],
   },
@@ -52,6 +53,8 @@ const routes: Routes = [
     MatPaginatorModule,
     MatSortModule,
     FormsModule,
+    MatSelectModule,
+    ReactiveFormsModule,
   ],
 })
 export class MainModule {}

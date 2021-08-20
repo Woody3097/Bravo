@@ -10,24 +10,12 @@ class CustomersController {
       if (parsedData.data.admin) {
         let sqlQuery =
           "select customerNo, customerName, customerAddress, dayslist.dayNames from customers, dayslist " +
-          "where dayslist.idCustomer = customers.idCustomer";
+          "where customers.customerNo = dayslist.idCustomer";
         sqlQuery +=
           sortWay === "ASC"
             ? " order by customerName ASC"
             : " order by customerName DESC";
         conn.query(sqlQuery).then((data) => {
-          res.status(200).send(data[0]);
-        });
-      } else {
-        const idUser = parsedData.data.idUsers;
-        let sqlQuery =
-          "select customerNo, customerName, customerAddress, dayslist.dayNames from customers, dayslist " +
-          "where idUser = ? and dayslist.idCustomer = customers.idCustomer";
-        sqlQuery +=
-          sortWay === "ASC"
-            ? " order by customerName ASC"
-            : " order by customerName DESC";
-        conn.query(sqlQuery, [idUser]).then((data) => {
           res.status(200).send(data[0]);
         });
       }
@@ -38,8 +26,8 @@ class CustomersController {
 
   async searchCustomers(req, res) {
     const sqlQuery =
-      "SELECT customerNo, customerName, customerAddress FROM customers" +
-      " where customerNo like ? OR customerName like ? OR customerAddress like ?";
+      "select customerNo, customerName, customerAddress, dayslist.dayNames from customers, dayslist " +
+      " where (customerNo like ? OR customerName like ? OR customerAddress like ?) AND customers.customerNo = dayslist.idCustomer";
     const { searchStr } = req.body;
     conn.query(sqlQuery, [searchStr, searchStr, searchStr]).then((data) => {
       res.status(200).send(data[0]);
@@ -105,10 +93,15 @@ class CustomersController {
       .then((res1) => {});
   }
 
-  async isAdmin(req, res) {
+  isAdmin(req, res) {
+    debugger;
     const { token } = req.body;
-    const parsedData = jwt.verify(token, "key");
-    await res.status(200).json(parsedData.data.admin);
+    try {
+      const parsedData = jwt.verify(token, "key");
+      res.status(200).send(parsedData.data.admin.toString());
+    } catch (err) {
+      res.status(401).send("hi");
+    }
   }
 }
 

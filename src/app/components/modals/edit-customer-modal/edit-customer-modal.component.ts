@@ -7,12 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { CustomersService } from '../../../shared/services/customers.service';
 
 @Component({
   selector: 'app-edit-customer-modal',
   templateUrl: './edit-customer-modal.component.html',
-  styleUrls: ['../../shared/styles/auth.scss'],
+  styleUrls: ['./edit-customer-modal.component.scss'],
 })
 export class EditCustomerModalComponent implements OnInit {
   form: FormGroup = new FormGroup({
@@ -29,7 +30,7 @@ export class EditCustomerModalComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
-    private auth: AuthService,
+    private customersService: CustomersService,
     private dialog: MatDialog
   ) {}
 
@@ -65,13 +66,14 @@ export class EditCustomerModalComponent implements OnInit {
       this.customerName.hasError('required') ||
       this.customerAddress.hasError('required') ||
       this.dayNames.hasError('required');
-
     if (errorStatus) {
       return;
     } else {
-      this.auth.editCustomer({ data: formCompleteData }).subscribe((res) => {
-        console.log(res);
-      });
+      this.customersService
+        .editCustomer({ data: formCompleteData })
+        .subscribe((res) => {
+          console.log(res);
+        });
       this.dialog.closeAll();
     }
   }

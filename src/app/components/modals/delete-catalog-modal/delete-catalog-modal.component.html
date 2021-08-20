@@ -1,0 +1,10 @@
+<app-modal>
+  <div class="catalog__modal-upper">
+    <h3 class="catalog__modal-title">Delete product?</h3>
+    <p class="catalog__modal-subtitle">Are you sure you want to delete <span class="catalog__modal-focus">{{ data }}</span> from the catalog?</p>
+  </div>
+  <div class="catalog__modal-lower">
+    <button class="catalog__modal-cancel" (click)="cancel()" type="button">Cancel</button>
+    <button class="catalog__modal-submit" (click)="submit()" type="button"> <mat-icon>delete</mat-icon> Delete</button>
+  </div>
+</app-modal>

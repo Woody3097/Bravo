@@ -5,6 +5,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { VerificationComponent } from './auth/verification/verification.component';
 import { MainComponent } from './main/main.component';
 import { RegistrationCompleteComponent } from './auth/registration-complete/registration-complete.component';
+import { MainModule } from './main/main.module';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'main',
-    redirectTo: 'main/catalog',
+    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
   },
   {
     path: '**',

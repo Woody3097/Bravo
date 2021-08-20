@@ -1,11 +1,11 @@
-:host {
+:host::ng-deep {
   .modal-container {
     position: relative;
     font-size: 15px;
     color: black;
     max-height: 97vh;
     overflow-y: auto;
-    padding: 50px;
+    background: transparent;
     &__close {
       right: 15px;
       top: 15px;
@@ -13,8 +13,7 @@
   }
   .tag-remove::before {
     position: absolute;
-    top: 40px;
-    right: 48px;
+    right: 0;
     transform: translateX(-100%, -100%);
     font-size: 30px;
     content: "\00d7";

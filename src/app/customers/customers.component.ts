@@ -3,11 +3,12 @@ import { AuthService } from '../shared/services/auth.service';
 import { first } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { EditCustomerModalComponent } from '../components/edit-customer-modal/edit-customer-modal.component';
+import { EditCustomerModalComponent } from '../components/modals/edit-customer-modal/edit-customer-modal.component';
 import { Store } from '@ngrx/store';
 import { CustomerElement } from '../shared/interfaces/intrefaces';
-import { changeSideBar } from '../shared/actions/side-bar.action';
+import { changeSideBar } from '../shared/store/actions/side-bar.action';
 import { MatTableDataSource } from '@angular/material/table';
+import { CustomersService } from '../shared/services/customers.service';
 
 @Component({
   selector: 'app-customers',
@@ -24,9 +25,10 @@ export class CustomersComponent implements OnInit {
   ];
   dataSource: MatTableDataSource<CustomerElement>;
   sortWay: string = 'DESC';
+  columnWidth: string = '25%';
 
   constructor(
-    private auth: AuthService,
+    private customersService: CustomersService,
     private dialog: MatDialog,
     private store: Store
   ) {}
@@ -41,12 +43,13 @@ export class CustomersComponent implements OnInit {
 
   getSortCustomers() {
     this.sortWay = this.toggleSortWay();
-    this.auth
+    this.customersService
       .getCustomers({
         token: localStorage.getItem('token'),
         sortWay: this.sortWay,
       })
       .subscribe((res) => {
+        console.log(res);
         this.dataSource = new MatTableDataSource<CustomerElement>(res);
         this.dataSource.paginator = this.paginator;
       });
@@ -54,21 +57,24 @@ export class CustomersComponent implements OnInit {
 
   searchCustomers(event: any) {
     if (event.target.value === '') {
-      this.auth
+      this.customersService
         .getCustomers({
           token: localStorage.getItem('token'),
           sortWay: this.sortWay,
         })
         .subscribe((res) => {
+          console.log(res);
           this.dataSource = new MatTableDataSource<CustomerElement>(res);
           this.dataSource.paginator = this.paginator;
         });
       return;
     }
-    this.auth.searchCustomers(event.target.value).subscribe((res) => {
-      this.dataSource = new MatTableDataSource<CustomerElement>(res);
-      this.dataSource.paginator = this.paginator;
-    });
+    this.customersService
+      .searchCustomers(event.target.value)
+      .subscribe((res) => {
+        this.dataSource = new MatTableDataSource<CustomerElement>(res);
+        this.dataSource.paginator = this.paginator;
+      });
   }
 
   openEditModal(el: CustomerElement): void {

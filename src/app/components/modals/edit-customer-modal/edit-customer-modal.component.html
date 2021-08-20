@@ -1,0 +1,14 @@
+<app-modal>
+  <form [formGroup]="form" class="customer-edit-modal__form customer-edit-modal__form-complete">
+    <h1>Edit Customer</h1>
+      <h2 class="customer-edit-modal__title">Complete registration</h2>
+      <input [formControlName]="'customerNo'" class="customer-edit-modal__input" type="text" placeholder="Customer No.">
+      <input [formControlName]="'customerName'" class="customer-edit-modal__input" required type="text" placeholder="Customer Name">
+      <span *ngIf="customerName.hasError('required')" class="customer-edit-modal__error">Required!</span>
+      <input [formControlName]="'customerAddress'" class="customer-edit-modal__input" required type="text" placeholder="Customer Address">
+      <span *ngIf="customerAddress.hasError('required')" class="customer-edit-modal__error">Required!</span>
+      <input [formControlName]="'dayNames'" class="customer-edit-modal__input" required type="text" placeholder="Delivery Days (Mon, Wed)">
+      <span *ngIf="dayNames.hasError('required')" class="customer-edit-modal__error">Required!</span>
+      <button type="button" (click)="submit()" class="customer-edit-modal__button">Submit</button>
+  </form>
+</app-modal>

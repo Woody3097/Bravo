@@ -3,15 +3,21 @@
     <mat-toolbar class="section__upper">
       <div class="section__block section__block-menu">
         <mat-icon (click)="changeSideBarState()">menu</mat-icon>
-        <span>sections</span>
+        <span>Catalog</span>
       </div>
       <div class="section__block">
-        <div>replace</div>
-        <div>add</div>
+        <div (click)="replaceCatalog()" class="section__block-flex">
+          <mat-icon> publish</mat-icon>
+            <span>replace</span>
+        </div>
+        <div (click)="openAddModal()" class="section__block-flex">
+          <mat-icon>add</mat-icon>
+          <span>add</span>
+        </div>
       </div>
     </mat-toolbar>
 
-    <input (input)="searchCatalog($event)" type="search" placeholder="section No, Name, Address..." class="section__search">
+    <input (input)="searchCatalog($event)" type="search" placeholder="Product name, product code..." class="section__search">
 
 
     <div class="section__table-block">
@@ -20,69 +26,96 @@
         <ng-container matColumnDef="productCode" class="section__cell">
           <th
             mat-header-cell
-            [ngStyle]="{ width: '16.666%'}"
+            [ngStyle]="{ width: columnWidth}"
             *matHeaderCellDef
-            class="section__th"> Product Code </th>
+            class="section__th"> Product Code
+          </th>
           <td
             mat-cell
-            [ngStyle]="{ width: '16.666%'}"
+            [ngStyle]="{ width: columnWidth}"
             *matCellDef="let element"
-            (click)="openEditModal(element)"> {{ element.productCode }} </td>
+            (click)="openEditModal(element)"> {{ element.productCode }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="productName">
-          <th (click)="getSortCatalog()"
-              [ngStyle]="{ width: '16.666%'}"
+          <th
+              [ngStyle]="{ width: columnWidth}"
               mat-header-cell
               *matHeaderCellDef
-              disableClear
-              mat-sort-header
-              class="section__th"> Name </th>
+              class="section__th"> Name
+          </th>
           <td
             mat-cell
-            [ngStyle]="{ width: '16.666%'}"
+            [ngStyle]="{ width: columnWidth}"
             *matCellDef="let element"
-            (click)="openEditModal(element)"> {{ element.productName }} </td>
+            (click)="openEditModal(element)"> {{ element.productName || null }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="productUnit">
           <th
             mat-header-cell
-            [ngStyle]="{ width: '16.666%'}"
+            [ngStyle]="{ width: columnWidth}"
             *matHeaderCellDef
-            class="section__th"> Unit </th>
+            class="section__th"> Unit
+          </th>
           <td
             mat-cell
-            [ngStyle]="{ width: '16.666%'}"
+            [ngStyle]="{ width: columnWidth}"
             *matCellDef="let element"
-            (click)="openEditModal(element)"> {{ element.units[0].unitName}}
-            <span [ngStyle]="{color: 'gray'}" *ngIf="element.units.length > 1">+ {{ element.units.length }} more</span>
+            (click)="openEditModal(element)"> {{ element.units[0].unitName || null }}
+            <span [ngStyle]="{color: 'gray'}" *ngIf="element.units.length > 1">+ {{ element.units.length - 1 }} more</span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="productPrice">
           <th
             mat-header-cell
-            [ngStyle]="{ width: '16.666%'}"
+            [ngStyle]="{ width: columnWidth}"
             *matHeaderCellDef
-            class="section__th"> Price </th>
+            class="section__th"> Price
+          </th>
           <td
             mat-cell
-            [ngStyle]="{ width: '16.666%'}"
+            [ngStyle]="{ width: columnWidth}"
             *matCellDef="let element"
-            (click)="openEditModal(element)"> {{ element.units[0].unitPrice }} </td>
+            (click)="openEditModal(element)"> {{ element.units[0].unitPrice || null }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="productAvailability">
           <th
             mat-header-cell
-            [ngStyle]="{ width: '16.666%'}"
+            [ngStyle]="{ width: columnWidth}"
             *matHeaderCellDef
-            class="section__th"> Availability </th>
+            class="section__th section__th-availability"
+            (click)="toggleAvailabilitySelect()">
+            Availability
+
+            <div (click)="$event.stopPropagation()" class="section__availability" *ngIf="availabilitySelectActive">
+              <form [formGroup]="availabilitySelectForm" class="section__availability-form" (change)="sortCatalog()">
+                <div class="section__availability-block">
+                  <input formControlName="In Stock" id="inStock" value="'In Stock'" type="checkbox">
+                  <label for="inStock">In Stock</label>
+                </div>
+                <div class="section__availability-block">
+                  <input formControlName="Out Stock" id="outStock" value="'Out Stock'" type="checkbox">
+                  <label for="outStock">Out Stock</label>
+                </div>
+                <div class="section__availability-block">
+                  <input formControlName="Discontinued" id="discontinued" value="'Discontinued'" type="checkbox">
+                  <label for="discontinued">Discontinued</label>
+                </div>
+              </form>
+            </div>
+          </th>
           <td mat-cell
               [ngStyle]="{ width: '16.666%'}"
               *matCellDef="let element"
-              (click)="openEditModal(element)"> {{ element.productAvailability }} </td>
+              (click)="openEditModal(element)">
+            {{ element.productAvailability }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
@@ -90,11 +123,15 @@
             mat-header-cell
             *matHeaderCellDef
             [ngStyle]="{ width: '16.666%'}"
-            class="section__th"> Action </th>
+            class="section__th"> Action
+          </th>
           <td mat-cell
-              (click)="deleteCatalogEl(element.productCode)"
               *matCellDef="let element"
-              [ngStyle]="{ width: '16.666%'}"> del </td>
+              [ngStyle]="{ width: '16.666%'}">
+            <div class="section__action">
+              <mat-icon class="delete-icon" (click)="deleteCatalogEl(element.productCode, element.productName)">delete</mat-icon>
+            </div>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -104,10 +141,10 @@
             <div class="section__empty">
               <img class="section__empty-img" src="../../assets/sources/images/Placeholder.svg" alt="placeholder">
               <span class="section__empty-title">No Data to display</span>
-              <span class="section__empty-text">Seems like you don’t have any <br> section yet. Let’s create it now!</span>
+              <span class="section__empty-text">Seems like you don’t have any <br> products yet. Let’s create it now!</span>
               <div class="section__block add-block">
                 <mat-icon>add</mat-icon>
-                <span>Add section</span>
+                <span>Add product</span>
               </div>
             </div>
           </td>

@@ -1,21 +1,43 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { first } from 'rxjs/operators';
+import { CustomersService } from '../services/customers.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerGuard implements CanActivate {
-  can: number;
-  constructor(private auth: AuthService, private router: Router) {}
+  customerIsAdmin: number;
+  tokenNotExpired: boolean;
+  constructor(
+    private customersService: CustomersService,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   async canActivate() {
-    this.can = await this.auth
-      .customerIsAdmin({ token: localStorage.getItem('token') })
-      .pipe(first())
-      .toPromise();
-    if (this.can === 1) {
+    await this.customersService
+      .customerIsAdmin({
+        token: localStorage.getItem('token'),
+      })
+      .toPromise()
+      .then((data) => {
+        this.customerIsAdmin = +data;
+      })
+      .catch((err) => {
+        this.customerIsAdmin = 0;
+      });
+
+    await this.auth
+      .tokenExpired(localStorage.getItem('token')!)
+      .toPromise()
+      .then((data) => {
+        this.tokenNotExpired = data;
+      })
+      .catch((err) => {
+        this.tokenNotExpired = false;
+      });
+    if (this.customerIsAdmin === 1 && this.tokenNotExpired) {
       return true;
     } else {
       this.router.navigate(['/login']);

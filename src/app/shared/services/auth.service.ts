@@ -1,83 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import {
+  _loginUrl,
+  _registerUrl,
+  _tokenExpiredUrl,
+  _verificationUrl,
+} from '../constants/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _loginUrl: string = 'http://localhost:3000/api/usersLogin';
-  private _registerUrl: string = 'http://localhost:3000/api/usersRegister';
-  private _verificationUrl: string =
-    'http://localhost:3000/api/usersVerification';
-  private _customersUrl: string = 'http://localhost:3000/api/customers';
-  private _customersSearchUrl: string =
-    'http://localhost:3000/api/customers-search';
-  private _customerCompleteUrl: string =
-    'http://localhost:3000/api/customer-complete';
-  private _customerEditUrl: string = 'http://localhost:3000/api/customer-edit';
-  private _customerIsAdmin: string =
-    'http://localhost:3000/api/customer-is-admin';
-  private _catalogGetUrl: string = 'http://localhost:3000/api/catalog';
-  private _catalogSearchUrl: string =
-    'http://localhost:3000/api/catalog-search';
-  private _catalogDeleteUrl: string = 'http://localhost:3000/api/catalog-del';
-
   constructor(private http: HttpClient) {}
 
   loginUser(user: any): Observable<any> {
-    return this.http.post<any>(this._loginUrl, user);
+    return this.http.post<any>(_loginUrl, user);
   }
 
   registerUser(user: any): Observable<any> {
-    return this.http.post<any>(this._registerUrl, user);
+    return this.http.post<any>(_registerUrl, user);
   }
 
   verificateUser(userData: any): Observable<any> {
-    return this.http.post<any>(this._verificationUrl, userData);
+    return this.http.post<any>(_verificationUrl, userData);
   }
 
-  getCustomers(user: any): Observable<any> {
-    return this.http.post<any>(this._customersUrl, user);
-  }
-
-  searchCustomers(searchStr: string): Observable<any> {
-    let tmp = searchStr.split('');
-    tmp.push('%');
-    tmp.unshift('%');
-
-    return this.http.post<any>(this._customersSearchUrl, {
-      searchStr: tmp.join(''),
-    });
-  }
-
-  completeCustomer(user: any): Observable<any> {
-    return this.http.put(this._customerCompleteUrl, user);
-  }
-
-  editCustomer(data: any): Observable<any> {
-    return this.http.post(this._customerEditUrl, data);
-  }
-
-  customerIsAdmin(token: any): Observable<any> {
-    return this.http.post(this._customerIsAdmin, token);
-  }
-
-  getCatalog(token: any): Observable<any> {
-    return this.http.post(this._catalogGetUrl, token);
-  }
-
-  searchCatalog(searchStr: string): Observable<any> {
-    let tmp = searchStr.split('');
-    tmp.push('%');
-    tmp.unshift('%');
-
-    return this.http.post<any>(this._catalogSearchUrl, {
-      searchStr: tmp.join(''),
-    });
-  }
-
-  deleteCatalogEl(id: number): Observable<any> {
-    return this.http.post(this._catalogDeleteUrl, { id });
+  tokenExpired(token: string): Observable<any> {
+    return this.http.post(_tokenExpiredUrl, { token });
   }
 }

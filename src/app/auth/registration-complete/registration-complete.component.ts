@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { CustomersService } from '../../shared/services/customers.service';
 
 @Component({
   selector: 'app-registration-complete',
@@ -20,7 +21,10 @@ export class RegistrationCompleteComponent implements OnInit {
     dayNames: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(
+    private router: Router,
+    private customersService: CustomersService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -51,7 +55,7 @@ export class RegistrationCompleteComponent implements OnInit {
     if (errorStatus) {
       return;
     } else {
-      this.auth
+      this.customersService
         .completeCustomer({
           token: localStorage.getItem('token'),
           data: formCompleteData,

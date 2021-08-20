@@ -4,26 +4,27 @@
       <img *ngIf="!logoActive" class="main__logo" src="assets/sources/images/logo.svg" alt="Logo">
       <img *ngIf="logoActive" class="main__logo" src="assets/sources/images/logo_img.svg" alt="Logo">
       <nav class="main__nav">
-        <div class="main__block">
-          <span class="main__link main__link-first">Orders</span>
+        <div [ngClass]="{'main__block': true, 'main__block-active': orderActive}">
+          <span (click)="setActive('order')" class="main__link main__link-first">Orders</span>
         </div>
-        <div class="main__block">
-          <span class="main__link main__link-second">Catalog</span>
+        <div [ngClass]="{'main__block': true, 'main__block-active': catalogActive}">
+          <span (click)="setActive('catalog')" class="main__link main__link-second" routerLink="/main/catalog">Catalog</span>
         </div>
-        <div class="main__block">
-          <span class="main__link main__link-third">Customers</span>
+        <div [ngClass]="{'main__block': true, 'main__block-active': customersActive}">
+          <span (click)="setActive('customers')" class="main__link main__link-third" routerLink="/main/customers">Customers</span>
         </div>
       </nav>
     </div>
     <div class="main__lower">
       <div class="main__block">
-        <span class="main__link main__link-fourth">Log out</span>
+        <span (click)="logOut()" class="main__link main__link-fourth">Log out</span>
       </div>
     </div>
   </div>
   <div class="outlet" [ngStyle]="outletStyle">
       <router-outlet></router-outlet>
   </div>
+
 </div>
 
 
