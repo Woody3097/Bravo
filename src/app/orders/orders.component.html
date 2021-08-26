@@ -1,0 +1,239 @@
+<div class="section">
+  <div class="wrapper">
+    <mat-toolbar class="section__upper">
+      <div class="section__block section__block-menu">
+        <mat-icon (click)="changeSideBarState()">menu</mat-icon>
+        <span>Orders</span>
+      </div>
+      <div class="section__block">
+        <div (click)="openAddModal()" class="section__block-flex">
+          <mat-icon>add</mat-icon>
+          <span>add</span>
+        </div>
+      </div>
+    </mat-toolbar>
+
+    <input (input)="searchOrders($event)" type="search" placeholder="Product name, product code..." class="section__search">
+
+
+    <div class="section__table-block">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 section__table">
+
+        <ng-container matColumnDef="empty">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '6.5%'}"
+            *matHeaderCellDef
+            class="section__th">
+          </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '6.5%'}"
+            *matCellDef="let element"
+          ><mat-icon class="expand expand-rotate">expand_more</mat-icon>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderNo">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '8%'}"
+            *matHeaderCellDef
+            class="section__th"> orderNo
+          </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '8%'}"
+            *matCellDef="let element"
+            > {{ element.orderNo }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="customerName">
+          <th
+            [ngStyle]="{ width: '12.5%'}"
+            mat-header-cell
+            *matHeaderCellDef
+            class="section__th"> Customer
+          </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '12.5%'}"
+            *matCellDef="let element"
+            > {{ element.customerName || null }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="customerNo">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '8%'}"
+            *matHeaderCellDef
+            class="section__th"> customerNo
+          </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '8%'}"
+            *matCellDef="let element"
+            > {{ element.customerNo || null }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderItems">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '8%'}"
+            *matHeaderCellDef
+            class="section__th"> Items
+          </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '8%'}"
+            *matCellDef="let element"
+            > {{ element.orderItems || null }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderNote">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '10%'}"
+            *matHeaderCellDef
+            class="section__th"> Note
+          </th>
+          <td
+            mat-cell
+            [ngStyle]="{ width: '10%'}"
+            *matCellDef="let element"
+            > {{ element.orderNote || null }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderDate">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '16.5%'}"
+            *matHeaderCellDef
+            class="section__th section__th-availability"
+            >
+            Ordered
+          </th>
+          <td mat-cell
+            [ngStyle]="{ width: '16.5%'}"
+            *matCellDef="let element"
+            >
+            {{ element.orderDate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reqDelivery">
+          <th
+            mat-header-cell
+            [ngStyle]="{ width: '16.5%'}"
+            *matHeaderCellDef
+            class="section__th section__th-availability"
+            >
+            Req. Delivery
+          </th>
+          <td mat-cell
+            [ngStyle]="{ width: '16.5%'}"
+            *matCellDef="let element"
+            >
+            {{ element.reqDelivery }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [ngStyle]="{ width: '12.5%'}"
+            class="section__th"> Status
+          </th>
+          <td mat-cell
+              *matCellDef="let element"
+              [ngStyle]="{ width: '12.5%'}">
+            <button (click)="confirmOrder($event, element.orderNo)" class="section__confirm-button" *ngIf="!!!element.orderStatus && !!(isAdmin$ | ngrxPush)">Confirm</button>
+            <span class="section__confirm-red" *ngIf="!!!element.orderStatus && !!!(isAdmin$ | ngrxPush)">Not confirmed</span>
+            <span class="section__confirm-green" *ngIf="!!element.orderStatus">Confirmed</span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr (click)="setActiveRow(index)" mat-row class="mat-row mat-row-main" *matRowDef="let row; let index = index; columns: displayedColumns;" [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="9999">
+            <div class="section__empty">
+              <img class="section__empty-img" src="assets/sources/images/Placeholder.svg" alt="placeholder">
+              <span class="section__empty-title">No Data to display</span>
+              <span class="section__empty-text">Seems like you don’t have any <br> products yet. Let’s create it now!</span>
+              <div class="section__block add-block">
+                <mat-icon>add</mat-icon>
+                <span>Add product</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+
+    </div>
+    <mat-paginator
+      #paginator
+      class="section__paginator"
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements">
+    </mat-paginator>
+    <ng-template #tpl let-element>
+      <td colspan="9" class="detail-row">
+        <div [@detailExpand] class="detail">
+          <div class="detail__upper">
+            <div class="detail__upper-info">
+              <span class="detail__upper-title">Notes:</span>
+              <span class="detail__upper-text">{{ element.orderNote }}</span>
+            </div>
+            <div class="detail__upper-info">
+              <span class="detail__upper-title">Delivery Address:</span>
+              <span class="detail__upper-text">{{ element.customerAddress }}</span>
+            </div>
+            <div *ngIf="!!element.orderStatus" (click)="setPrintData(element)" class="detail__print-block">
+              <mat-icon class="detail__print-img"> local_printshop</mat-icon>
+              <span>Print Order</span>
+            </div>
+            <div *ngIf="!!!element.orderStatus">
+              <span class="detail__upper-text">Wait for your order confirmation to print</span>
+            </div>
+          </div>
+
+          <div class="detail__lower">
+            <table mat-table [dataSource]="element.products" class="mat-elevation-z8 detail__table">
+              <ng-container matColumnDef="productCode">
+                <th mat-header-cell *matHeaderCellDef> Product Code </th>
+                <td mat-cell *matCellDef="let element"> {{element.productCode}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="productName">
+                <th mat-header-cell *matHeaderCellDef> Product Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="unit">
+                <th mat-header-cell *matHeaderCellDef> Unit </th>
+                <td mat-cell *matCellDef="let element"> {{element.unit}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsDetail"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsDetail;"></tr>
+            </table>
+          </div>
+        </div>
+      </td>
+    </ng-template>
+  </div>
+</div>

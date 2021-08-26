@@ -1,0 +1,45 @@
+<div class="container">
+  <img class="print__img" src="assets/sources/images/logo.svg" alt="Logo">
+  <div class="print__block print__block-first">
+    <div class="print__block-column">
+      <span class="print__number">Order {{ printData.orderNo }}</span>
+      <span class="print__date">{{ printData.orderDate }}</span>
+    </div>
+    <span class="print__green">Confirmed</span>
+  </div>
+  <div class="print__block print__block-first">
+    <div class="print__block-column">
+      <span class="print__title">Customer</span>
+      <span class="print__text">{{ printData.customerNo }}</span>
+      <span class="print__text">{{ printData.customerName }}</span>
+      <span class="print__text">{{ printData.customerAddress }}</span>
+    </div>
+    <div class="print__block-column">
+      <span class="print__title">Requested Delivery Date</span>
+      <span class="print__text">{{ printData.reqDelivery }}</span>
+    </div>
+  </div>
+  <div class="print__block-column print__block-second">
+    <span class="print__title">Notes</span>
+    <span class="print__text">{{ printData.orderNote }}</span>
+  </div>
+  <div class="print__table-block">
+    <table class="print__table">
+      <tr>
+        <th>ProductCode</th>
+        <th>Product</th>
+        <th>Unit</th>
+        <th>Quantity</th>
+      </tr>
+      <tr *ngFor="let product of printData.products">
+        <td>{{ product.productCode }}</td>
+        <td>{{ product.productName }}</td>
+        <td>{{ product.unit }}</td>
+        <td>{{ product.quantity }}</td>
+      </tr>
+    </table>
+  </div>
+  <span class="print__items">Total {{ printData.orderItems }} items</span>
+</div>
+<div class="print__back" (click)="goBack()">Back</div>
+<div class="print__document" (click)="print()">Print</div>

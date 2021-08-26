@@ -23,3 +23,6 @@ export const _tokenExpiredUrl: string =
 export const _catalogSortUrl: string = 'http://localhost:3000/api/catalog-sort';
 export const _catalogReplaceUrl: string =
   'http://localhost:3000/api/catalog-replace';
+export const _ordersUrl: string = 'http://localhost:3000/api/orders';
+export const _ordersConfirmUrl: string =
+  'http://localhost:3000/api/orders-confirm';

@@ -5,7 +5,7 @@
       <img *ngIf="logoActive" class="main__logo" src="assets/sources/images/logo_img.svg" alt="Logo">
       <nav class="main__nav">
         <div [ngClass]="{'main__block': true, 'main__block-active': orderActive}">
-          <span (click)="setActive('order')" class="main__link main__link-first">Orders</span>
+          <span (click)="setActive('order')" class="main__link main__link-first" routerLink="/main/orders">Orders</span>
         </div>
         <div [ngClass]="{'main__block': true, 'main__block-active': catalogActive}">
           <span (click)="setActive('catalog')" class="main__link main__link-second" routerLink="/main/catalog">Catalog</span>

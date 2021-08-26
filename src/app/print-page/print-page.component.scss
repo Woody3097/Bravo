@@ -1,0 +1,120 @@
+.container {
+  max-width: 40vw;
+  margin: 0 auto;
+  padding-top: 10vh;
+}
+
+.print {
+  &__img {
+    margin-bottom: 24px;
+  }
+  &__block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-first {
+      margin-bottom: 16px;
+    }
+    &-second {
+      margin-bottom: 30px;
+    }
+    &-column {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &__number {
+    font-family: Manrope-SemiBold, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 132%;
+    color: #000000;
+  }
+  &__date {
+    font-family: Manrope-Regular, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 142%;
+    letter-spacing: 0.0168em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #616161;
+  }
+  &__table {
+    text-align: left;
+    background: #FFFFFF;
+    width: 100%;
+    border-collapse: collapse;
+    &-block {
+      border: 1px solid #E0E0E0;
+      box-sizing: border-box;
+      border-radius: 6px;
+      padding: 5px 15px;
+    }
+    & td, th {
+      padding: 10px;
+    }
+    & tr {
+      border-bottom: 1px solid #E0E0E0;
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+  &__green {
+    font-family: Manrope-Bold, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.005em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #1F8B24;
+  }
+  &__title {
+    font-family: Manrope-Bold, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 142%;
+    letter-spacing: 0.005em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #000000;
+  }
+  &__text {
+    font-family: Manrope-Regular, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.0168em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #000000;
+  }
+  &__items {
+    font-family: Manrope-Regular, serif;
+    font-style: normal;
+    font-weight: normal;
+    display: block;
+    font-size: 14px;
+    line-height: 142%;
+    text-align: right;
+    letter-spacing: 0.0168em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #616161;
+    margin-top: 12px;
+  }
+  &__back {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    cursor: pointer;
+  }
+  &__document {
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    cursor: pointer;
+  }
+}

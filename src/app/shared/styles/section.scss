@@ -97,6 +97,8 @@
     border: 1px solid rgba(0,0,0,.12);
     border-bottom: none;
     &-block {
+      overflow: auto;
+      max-height: 400px;
       &::ng-deep {
         .mat-table thead,
         .mat-table tbody,
@@ -110,12 +112,34 @@
         .mat-table-sticky {
           background: transparent;
         }
-        [mat-row] {
+        .section__table [mat-row] {
           &:hover {
             cursor: pointer;
+            background: rgba(197, 220, 250, 0.5);
           }
         }
       }
+    }
+  }
+  &__confirm {
+    &-button {
+      color: #C5DCFA;
+      padding: 8px 12px;
+      background: #1672EC;
+      box-shadow: 0px 1px 2px rgba(15, 86, 179, 0.2), 0px 2px 4px rgba(15, 86, 179, 0.2);
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      z-index: 10000;
+      &:hover {
+        background-color: #F5413D;
+      }
+    }
+    &-green {
+      color: #1F8B24;
+    }
+    &-red {
+      color: #F5413D;
     }
   }
   &::ng-deep {
@@ -188,6 +212,61 @@ mat-paginator {
     color: red;
   }
 }
+.detail-row {
+  overflow: hidden;
+  border-bottom: 1px solid #C0C0C0;
+  background: rgba(197, 220, 250, 0.25);
+}
 
+.active-row {
+  background: rgba(197, 220, 250, 0.5);
+}
+.expand {
+  &-rotate {
+    transform: rotate(180deg);
+  }
+}
+.detail {
+  padding: 20px 20px 20px 6.5%;
+  &__print {
+    &-img {
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    &-block {
+      cursor: pointer;
+    }
+  }
+  &__upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-info {
+      display: flex;
+      flex-direction: column;
+    }
+    &-text {
+      font-family: Manrope-Regular, serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 150%;
+      letter-spacing: 0.0168em;
+      font-feature-settings: 'tnum' on, 'lnum' on;
+      color: #000000;
+    }
+  }
+  &__table {
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+    & [mat-row] {
+      &:hover {
+        background-color: transparent;
+        cursor: auto;
+      }
+    }
+  }
+}
 
 

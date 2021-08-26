@@ -132,6 +132,17 @@ class UserController {
       res.status(401).send("error!");
     }
   }
+
+  getCustomerId(req, res) {
+    const { token } = req.body;
+    const parsedData = jwt.verify(token, "key");
+
+    const sqlQuery = "select idCustomer from customers where idUser = ?";
+
+    conn.query(sqlQuery, [parsedData.data.idUsers]).then((data) => {
+      res.status(200).send(data);
+    });
+  }
 }
 
 module.exports = new UserController();

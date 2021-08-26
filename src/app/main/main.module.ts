@@ -15,6 +15,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerGuard } from '../shared/guards/customer.guard';
 import { CatalogComponent } from '../catalog/catalog.component';
 import { MatSelectModule } from '@angular/material/select';
+import { OrdersComponent } from '../orders/orders.component';
+import { MatRippleModule } from '@angular/material/core';
+import { DescriptionRowDirective } from '../shared/directives/description-row.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 const routes: Routes = [
   {
@@ -32,6 +38,10 @@ const routes: Routes = [
         canActivate: [CustomerGuard],
       },
       {
+        path: 'orders',
+        component: OrdersComponent,
+      },
+      {
         path: '**',
         redirectTo: 'catalog',
       },
@@ -40,7 +50,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [MainComponent, CustomersComponent, CatalogComponent],
+  declarations: [
+    MainComponent,
+    CustomersComponent,
+    CatalogComponent,
+    OrdersComponent,
+    DescriptionRowDirective,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -55,6 +71,9 @@ const routes: Routes = [
     FormsModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatRippleModule,
+    MatButtonToggleModule,
+    ReactiveComponentModule,
   ],
 })
 export class MainModule {}

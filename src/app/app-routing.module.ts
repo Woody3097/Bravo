@@ -6,6 +6,8 @@ import { VerificationComponent } from './auth/verification/verification.componen
 import { MainComponent } from './main/main.component';
 import { RegistrationCompleteComponent } from './auth/registration-complete/registration-complete.component';
 import { MainModule } from './main/main.module';
+import { PrintPageComponent } from './print-page/print-page.component';
+import { PrintGuard } from './shared/guards/print.guard';
 
 const routes: Routes = [
   {
@@ -23,6 +25,11 @@ const routes: Routes = [
   {
     path: 'registration-complete',
     component: RegistrationCompleteComponent,
+  },
+  {
+    path: 'print',
+    component: PrintPageComponent,
+    canActivate: [PrintGuard],
   },
   {
     path: 'main',

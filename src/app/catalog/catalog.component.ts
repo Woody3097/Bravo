@@ -3,7 +3,6 @@ import { CatalogElement } from '../shared/interfaces/intrefaces';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { changeSideBar } from '../shared/store/actions/side-bar.action';
-import { AuthService } from '../shared/services/auth.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { first } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -153,8 +152,9 @@ export class CatalogComponent implements OnInit {
   }
 
   openAddModal(): void {
-    const a = this.dialog.open(AddCatalogModalComponent);
-    a.afterClosed()
+    const dialogRef = this.dialog.open(AddCatalogModalComponent);
+    dialogRef
+      .afterClosed()
       .pipe(first())
       .subscribe((res) => {
         setTimeout(() => this.getSortCatalog(), 1000);
@@ -162,8 +162,9 @@ export class CatalogComponent implements OnInit {
   }
 
   replaceCatalog(): void {
-    const a = this.dialog.open(ReplaceCatalogModalComponent);
-    a.afterClosed()
+    const dialogRef = this.dialog.open(ReplaceCatalogModalComponent);
+    dialogRef
+      .afterClosed()
       .pipe(first())
       .toPromise()
       .then((data) => {

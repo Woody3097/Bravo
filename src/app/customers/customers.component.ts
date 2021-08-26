@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from '../shared/services/auth.service';
 import { first } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
@@ -49,7 +48,6 @@ export class CustomersComponent implements OnInit {
         sortWay: this.sortWay,
       })
       .subscribe((res) => {
-        console.log(res);
         this.dataSource = new MatTableDataSource<CustomerElement>(res);
         this.dataSource.paginator = this.paginator;
       });
@@ -63,7 +61,6 @@ export class CustomersComponent implements OnInit {
           sortWay: this.sortWay,
         })
         .subscribe((res) => {
-          console.log(res);
           this.dataSource = new MatTableDataSource<CustomerElement>(res);
           this.dataSource.paginator = this.paginator;
         });

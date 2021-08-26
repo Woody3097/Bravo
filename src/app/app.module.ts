@@ -10,7 +10,6 @@ import { VerificationComponent } from './auth/verification/verification.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './shared/services/auth.service';
 import { MainModule } from './main/main.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +27,9 @@ import { AddCatalogModalComponent } from './components/modals/add-catalog-modal/
 import { DeleteCatalogModalComponent } from './components/modals/delete-catalog-modal/delete-catalog-modal.component';
 import { ReplaceCatalogModalComponent } from './components/modals/replace-catalog-modal/replace-catalog-modal.component';
 import { ngfModule } from 'angular-file';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddOrderModalComponent } from './components/modals/add-order-modal/add-order-modal.component';
+import { PrintPageComponent } from './print-page/print-page.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { ngfModule } from 'angular-file';
     AddCatalogModalComponent,
     DeleteCatalogModalComponent,
     ReplaceCatalogModalComponent,
+    AddOrderModalComponent,
+    PrintPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,6 @@ import { ngfModule } from 'angular-file';
     ReactiveFormsModule,
     HttpClientModule,
     MainModule,
-    NoopAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
@@ -63,6 +66,7 @@ import { ngfModule } from 'angular-file';
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
     ngfModule,
+    BrowserAnimationsModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],
